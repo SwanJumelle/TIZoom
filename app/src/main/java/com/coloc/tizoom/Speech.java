@@ -2,8 +2,11 @@ package com.coloc.tizoom;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,15 +16,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class Speech extends Activity implements View.OnClickListener {
+public class Speech extends Activity implements SensorListener {
 
     protected static final int REQUEST_OK = 1;
+    private SensorManager sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
+    private long lastUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech);
-        findViewById(R.id.button1).setOnClickListener(this);
+        sensorMgr.registerListener(this,
+                SensorManager.SENSOR_ACCELEROMETER,
+                SensorManager.SENSOR_DELAY_GAME);
     }
 
 
@@ -44,7 +51,6 @@ public class Speech extends Activity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onClick(View v) {
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
@@ -62,5 +68,35 @@ public class Speech extends Activity implements View.OnClickListener {
             ArrayList<String> thingsYouSaid = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             ((TextView)findViewById(R.id.text1)).setText(thingsYouSaid.get(0));
         }
+    }
+
+    public void onSensorChanged(int sensor, float[] values) {
+        if (sensor == SensorManager.SENSOR_ACCELEROMETER) {
+            long curTime = System.currentTimeMillis();
+            // only allow one update every 100ms.
+            if ((curTime - lastUpdate) > 100) {
+                long diffTime = (curTime - lastUpdate);
+                lastUpdate = curTime;
+
+                x = values[SensorManager.DATA_X];
+                y = values[SensorManager.DATA_Y];
+                z = values[SensorManager.DATA_Z];
+
+                float speed = Math.abs(x+y+z – last_x – last_y – last_z) / diffTime * 10000;
+
+                if (speed > SHAKE_THRESHOLD) {
+                    Log.d("sensor", "shake detected w/ speed: " + speed);
+                    Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
+                }
+                last_x = x;
+                last_y = y;
+                last_z = z;
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(int i, int i2) {
+
     }
 }
