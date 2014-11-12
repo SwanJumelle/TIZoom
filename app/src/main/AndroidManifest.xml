@@ -8,17 +8,12 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Zoom"
-            android:label="@string/app_name" >
+            android:name=".PhotoDisplayActivity"
+            android:label="@string/title_activity_speech" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".Speech"
-            android:label="@string/title_activity_speech" >
         </activity>
     </application>
 

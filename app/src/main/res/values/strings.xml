@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">TIZoom</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_speech">speech</string>
+    <string name="title_activity_speech">TIZoom</string>
+    <string name="launchSpeech">Start Speech</string>
 
 </resources>
