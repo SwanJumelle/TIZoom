@@ -146,6 +146,10 @@ class ZoomController implements View.OnTouchListener {
              * The multi-touch event is over, store the new values inside the global zoom
              * and translation fields and reset the "current" values.
              */
+
+            PointerCoords p1 = new PointerCoords();
+            event.getPointerCoords(0, p1);
+
             if (prevPointerCount == 2) {
                 zoomTranslate.x = zoomTranslate.x * curZoomFactor + curZoomTranslate.x;
                 zoomTranslate.y = zoomTranslate.y * curZoomFactor + curZoomTranslate.y;
@@ -154,13 +158,11 @@ class ZoomController implements View.OnTouchListener {
                 curZoomTranslate.y = 0;
             }
             if (prevPointerCount == 1) {
-                Log.d(TAG, "ya draggin'");
-                PointerCoords p1 = new PointerCoords();
-                event.getPointerCoords(0, p1);
-                curZoomTranslate.x += prevCoords1.x - p1.x;
-                curZoomTranslate.y += prevCoords1.y - p1.y;
+                curZoomTranslate.x += p1.x - prevCoords1.x;
+                curZoomTranslate.y += p1.y - prevCoords1.y;
                 listener.onPanAndZoom();
             }
+            prevCoords1 = p1;
 
 
             curZoomFactor = 1;
