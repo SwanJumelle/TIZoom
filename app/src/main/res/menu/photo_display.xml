@@ -7,9 +7,15 @@
         android:showAsAction="always"
         android:visible="true"
         android:enabled="true" />
-    <item android:id="@+id/photoPicker"
+    <item android:id="@+id/photoZoom"
         android:title="@string/photoPicker"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@android:drawable/btn_plus"
+        android:showAsAction="always"
+        android:visible="true"
+        android:enabled="true" />
+    <item android:id="@+id/photoUnZoom"
+        android:title="@string/photoPicker"
+        android:icon="@android:drawable/btn_minus"
         android:showAsAction="always"
         android:visible="true"
         android:enabled="true" />

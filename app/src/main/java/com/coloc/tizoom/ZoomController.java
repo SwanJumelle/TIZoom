@@ -260,6 +260,16 @@ class ZoomController implements View.OnTouchListener {
         return (int) ((((zoomedAndTranslatedY - curZoomTranslate.y) / curZoomFactor) - zoomTranslate.y) / zoomFactor);
     }
 
+    public void onPlus(){
+        zoomFactor*=2.0f;
+        listener.onPanAndZoom();
+    }
+
+    public void onMinus() {
+        zoomFactor*=0.5f;
+        listener.onPanAndZoom();
+    }
+
 
     /**
      * The interface any class that wants to use <code>PanAndZoomController</code> has to implement.

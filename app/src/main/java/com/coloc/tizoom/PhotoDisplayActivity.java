@@ -60,6 +60,10 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
         int id = item.getItemId();
         if (id == R.id.launchSpeech) {
             startSpeechRecognition();
+        } else if (id == R.id.photoZoom) {
+            mZoomController.onPlus();
+        } else if (id == R.id.photoUnZoom) {
+            mZoomController.onMinus();
         } else {
         	switch (id) {
         		case 1:
@@ -106,11 +110,12 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
         if (requestCode==REQUEST_OK  && resultCode==RESULT_OK) {
             ArrayList<String> thingsYouSaid = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             Log.i(TAG,thingsYouSaid.get(0));
-            if(thingsYouSaid.get(0).equalsIgnoreCase("momo")) {
-                mZoomController.onVoiceCommand(true);
-            }else if(thingsYouSaid.get(0).equalsIgnoreCase("mot")){
+            for(String thing : thingsYouSaid){
+                if(thing.equalsIgnoreCase("momo"))
+                    mZoomController.onVoiceCommand(true);
+            }
+            if(thingsYouSaid.get(0).equalsIgnoreCase("mot")){
                 mZoomController.onVoiceCommand(false);
-                // TODO si le mot prononcé est "zoom" ou "unzoom", dire au PanAndZoomController de zoomer / dézoomer.
             }
         }
     }
