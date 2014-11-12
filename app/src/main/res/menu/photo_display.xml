@@ -7,4 +7,10 @@
         android:showAsAction="always"
         android:visible="true"
         android:enabled="true" />
+    <item android:id="@+id/photoPicker"
+        android:title="@string/photoPicker"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:showAsAction="always"
+        android:visible="true"
+        android:enabled="true" />
 </menu>

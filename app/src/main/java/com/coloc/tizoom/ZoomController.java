@@ -171,6 +171,17 @@ class ZoomController implements View.OnTouchListener {
         listener.onPanAndZoom();
     }
 
+    public void onDoubleTap(boolean zoomIn) {
+        if (zoomIn) {
+            zoomFactor *= 2;
+            listener.onPanAndZoom();
+            return;
+        }
+        zoomFactor /= 2;
+        listener.onPanAndZoom();
+    }
+
+
     /**
      * Simple utility used to calculate distance between two pointers on the screen.
      * @param p1 the first pointer
