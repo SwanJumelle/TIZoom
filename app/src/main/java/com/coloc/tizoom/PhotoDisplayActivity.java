@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 
-public class PhotoDisplayActivity extends Activity {
+public class PhotoDisplayActivity extends Activity implements PanAndZoomController.PanAndZoomListener {
 
     protected static final int REQUEST_OK = 1;
     private long lastUpdate;
@@ -38,10 +38,13 @@ public class PhotoDisplayActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.launchSpeech) {
+            // TODO lancer la reconnaissance vocale
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClick(View v) {
+    public void startSpeechRecognition(View v) {
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
         try {
@@ -49,5 +52,19 @@ public class PhotoDisplayActivity extends Activity {
         } catch (Exception e) {
             Toast.makeText(this, "Error initializing speech to text engine.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQUEST_OK  && resultCode==RESULT_OK) {
+            ArrayList<String> thingsYouSaid = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            // TODO si le mot prononcé est "zoom" ou "unzoom", dire au PanAndZoomController de zoomer / dézoomer.
+        }
+    }
+
+    @Override
+    public void onPanAndZoom() {
+        // TODO mettre à jour la ZoomableView
     }
 }

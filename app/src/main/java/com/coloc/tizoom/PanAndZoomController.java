@@ -1,4 +1,4 @@
-package eu.mikrosimage.mon.milocate;
+package com.coloc.tizoom;
 
 import android.view.MotionEvent;
 import android.view.View;
@@ -159,6 +159,10 @@ class PanAndZoomController implements View.OnTouchListener {
 
         prevPointerCount = pointerCount;
         return true;
+    }
+
+    public void onVoiceCommand(boolean zoomIn) {
+        // TODO zoomIn or zoomOut
     }
 
     /**
