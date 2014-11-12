@@ -11,7 +11,7 @@ import static android.view.MotionEvent.PointerCoords;
  *
  * @author Thomas Montana
  */
-class PanAndZoomController implements View.OnTouchListener {
+class ZoomController implements View.OnTouchListener {
     private static final String TAG = "PanAndZoomController";
 
     /**
@@ -66,7 +66,7 @@ class PanAndZoomController implements View.OnTouchListener {
      * @param listener The class that will receive the signal that pan and zoom properties have changed.
      *                 Usually it refreshes the zoomed views according to the new values.
      */
-    public PanAndZoomController(PanAndZoomListener listener) {
+    public ZoomController(PanAndZoomListener listener) {
         this.listener = listener;
     }
 

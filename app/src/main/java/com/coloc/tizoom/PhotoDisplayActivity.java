@@ -7,21 +7,21 @@ import android.speech.RecognizerIntent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
-public class PhotoDisplayActivity extends Activity implements PanAndZoomController.PanAndZoomListener {
+public class PhotoDisplayActivity extends Activity implements ZoomController.PanAndZoomListener {
 
     protected static final int REQUEST_OK = 1;
-    private long lastUpdate;
+    private ZoomController mZoomController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_display);
+
     }
 
 
