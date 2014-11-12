@@ -1,5 +1,6 @@
 package com.coloc.tizoom;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,11 +18,11 @@ class ZoomController implements View.OnTouchListener {
     /**
      * The minimal zoom factor a user can get.
      */
-    public static final float MIN_ZOOM_FACTOR = 0.3f;
+    public static final float MIN_ZOOM_FACTOR = 0.01f;
     /**
      * The maximal zoom factor a user can get.
      */
-    public static final float MAX_ZOOM_FACTOR = 2.5f;
+    public static final float MAX_ZOOM_FACTOR = 5.0f;
 
     /**
      * The listener that will react to every pan and zoom properties update.
@@ -201,6 +202,10 @@ class ZoomController implements View.OnTouchListener {
      */
     public int zoom(float d) {
         return (int) (this.zoomFactor * this.curZoomFactor * d);
+    }
+
+    public float getZoomFactor() {
+        return this.zoomFactor * this.curZoomFactor;
     }
 
     /**

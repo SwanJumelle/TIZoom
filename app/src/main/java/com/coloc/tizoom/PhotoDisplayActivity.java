@@ -2,11 +2,14 @@ package com.coloc.tizoom;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,13 +18,17 @@ import java.util.ArrayList;
 public class PhotoDisplayActivity extends Activity implements ZoomController.PanAndZoomListener {
 
     protected static final int REQUEST_OK = 1;
+    private static final String TAG = "PhotoDisplayActivity";
     private ZoomController mZoomController;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_display);
-
+        mImageView = (ImageView) findViewById(R.id.image);
+        mZoomController = new ZoomController(this);
+        findViewById(R.id.mainLayout).setOnTouchListener(mZoomController);
     }
 
 
@@ -65,6 +72,14 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
 
     @Override
     public void onPanAndZoom() {
-        // TODO mettre à jour la ZoomableView
+        int xOffset = mZoomController.zoomAndTranslateX(0);
+        int yOffset = mZoomController.zoomAndTranslateY(0);
+        float zoomFactor = mZoomController.getZoomFactor();
+        Log.d(TAG, "x" + xOffset + " y" + yOffset + " z" + zoomFactor);
+        Matrix matrix = new Matrix();
+        matrix.postScale(zoomFactor, zoomFactor);
+        matrix.postTranslate(xOffset, yOffset);
+        mImageView.setImageMatrix(matrix);
+        mImageView.setScaleType(ImageView.ScaleType.MATRIX);
     }
 }
