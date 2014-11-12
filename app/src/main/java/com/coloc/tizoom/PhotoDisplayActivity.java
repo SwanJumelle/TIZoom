@@ -36,6 +36,9 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.photo_display, menu);
+        for (int i = 1; i <= 7; i++) {
+            menu.add(Menu.NONE, i, Menu.NONE, "Momo " + i);
+        }
         return true;
     }
 
@@ -47,6 +50,32 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
         int id = item.getItemId();
         if (id == R.id.launchSpeech) {
             // TODO lancer la reconnaissance vocale
+        } else {
+        	switch (id) {
+        		case 1:
+					mImageView.setImageResource(R.drawable.momo1);
+					break;
+				case 2:
+					mImageView.setImageResource(R.drawable.momo2);
+					break;
+				case 3:
+					mImageView.setImageResource(R.drawable.momo3);
+					break;
+				case 4:
+					mImageView.setImageResource(R.drawable.momo4);
+					break;
+				case 5:
+					mImageView.setImageResource(R.drawable.momo5);
+					break;
+				case 6:
+					mImageView.setImageResource(R.drawable.momo6);
+					break;
+				case 7:
+					mImageView.setImageResource(R.drawable.momo7);
+					break;
+				default:
+					break;
+        	}
         }
         return super.onOptionsItemSelected(item);
     }
