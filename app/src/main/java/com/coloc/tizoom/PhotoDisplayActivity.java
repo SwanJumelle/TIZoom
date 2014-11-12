@@ -46,12 +46,12 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.launchSpeech) {
-            // TODO lancer la reconnaissance vocale
+            startSpeechRecognition();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void startSpeechRecognition(View v) {
+    public void startSpeechRecognition() {
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
         try {
@@ -66,7 +66,13 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==REQUEST_OK  && resultCode==RESULT_OK) {
             ArrayList<String> thingsYouSaid = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            // TODO si le mot prononcé est "zoom" ou "unzoom", dire au PanAndZoomController de zoomer / dézoomer.
+            Log.i(TAG,thingsYouSaid.get(0));
+            if(thingsYouSaid.get(0).equalsIgnoreCase("momo")) {
+                mZoomController.onVoiceCommand(true);
+            }else if(thingsYouSaid.get(0).equalsIgnoreCase("mot")){
+                mZoomController.onVoiceCommand(false);
+                // TODO si le mot prononcé est "zoom" ou "unzoom", dire au PanAndZoomController de zoomer / dézoomer.
+            }
         }
     }
 

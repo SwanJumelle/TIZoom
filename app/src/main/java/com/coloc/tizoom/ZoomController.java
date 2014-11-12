@@ -163,7 +163,12 @@ class ZoomController implements View.OnTouchListener {
     }
 
     public void onVoiceCommand(boolean zoomIn) {
-        // TODO zoomIn or zoomOut
+        if(zoomIn){
+            zoomFactor*=2.0f;
+        }else{
+            zoomFactor*=0.5f;
+        }
+        listener.onPanAndZoom();
     }
 
     /**
