@@ -111,10 +111,10 @@ public class PhotoDisplayActivity extends Activity implements ZoomController.Pan
             ArrayList<String> thingsYouSaid = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             Log.i(TAG,thingsYouSaid.get(0));
             for(String thing : thingsYouSaid){
-                if(thing.equalsIgnoreCase("momo"))
+                if(thing.equalsIgnoreCase("plus"))
                     mZoomController.onVoiceCommand(true);
             }
-            if(thingsYouSaid.get(0).equalsIgnoreCase("mot")){
+            if(thingsYouSaid.get(0).equalsIgnoreCase("moins")){
                 mZoomController.onVoiceCommand(false);
             }
         }
