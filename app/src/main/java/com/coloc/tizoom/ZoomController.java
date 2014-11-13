@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import static android.view.MotionEvent.ACTION_UP;
 import static android.view.MotionEvent.PointerCoords;
 
 /**
@@ -105,6 +106,7 @@ class ZoomController implements View.OnTouchListener {
          * Store the number of pointers (fingers) touching the screen.
          */
         int pointerCount = event.getPointerCount();
+        if (event.getActionMasked() == ACTION_UP) pointerCount = 0;
 
         if (pointerCount == 2) {
             /*
@@ -156,14 +158,12 @@ class ZoomController implements View.OnTouchListener {
                 zoomFactor *= curZoomFactor;
                 curZoomTranslate.x = 0;
                 curZoomTranslate.y = 0;
-            }
-            if (prevPointerCount == 1) {
-                curZoomTranslate.x += p1.x - prevCoords1.x;
-                curZoomTranslate.y += p1.y - prevCoords1.y;
+            } else if (prevPointerCount == 1) {
+                zoomTranslate.x += p1.x - prevCoords1.x;
+                zoomTranslate.y += p1.y - prevCoords1.y;
                 listener.onPanAndZoom();
             }
             prevCoords1 = p1;
-
 
             curZoomFactor = 1;
         } else {
@@ -176,6 +176,7 @@ class ZoomController implements View.OnTouchListener {
         }
 
         prevPointerCount = pointerCount;
+        Log.d(TAG, "prev pointer count = " + prevPointerCount);
         return true;
     }
 
